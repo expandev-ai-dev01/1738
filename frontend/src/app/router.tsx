@@ -4,6 +4,10 @@ import { RootLayout } from '@/pages/layouts/RootLayout';
 import { LoadingSpinner } from '@/core/components/LoadingSpinner';
 
 const HomePage = lazy(() => import('@/pages/Home'));
+const ProductsPage = lazy(() => import('@/pages/Products'));
+const ProductCreatePage = lazy(() => import('@/pages/ProductCreate'));
+const ProductDetailPage = lazy(() => import('@/pages/ProductDetail'));
+const ProductEditPage = lazy(() => import('@/pages/ProductEdit'));
 const NotFoundPage = lazy(() => import('@/pages/NotFound'));
 
 /**
@@ -24,6 +28,43 @@ export const router = createBrowserRouter([
             <HomePage />
           </Suspense>
         ),
+      },
+      {
+        path: 'products',
+        children: [
+          {
+            index: true,
+            element: (
+              <Suspense fallback={<LoadingSpinner />}>
+                <ProductsPage />
+              </Suspense>
+            ),
+          },
+          {
+            path: 'new',
+            element: (
+              <Suspense fallback={<LoadingSpinner />}>
+                <ProductCreatePage />
+              </Suspense>
+            ),
+          },
+          {
+            path: ':id',
+            element: (
+              <Suspense fallback={<LoadingSpinner />}>
+                <ProductDetailPage />
+              </Suspense>
+            ),
+          },
+          {
+            path: ':id/edit',
+            element: (
+              <Suspense fallback={<LoadingSpinner />}>
+                <ProductEditPage />
+              </Suspense>
+            ),
+          },
+        ],
       },
       {
         path: '*',
